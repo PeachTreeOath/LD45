@@ -2,38 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivityManager : MonoBehaviour
+public class ActivityManager : Singleton<ActivityManager>
 {
 
+    public List<ActivityButton> activityButtons;
+
     private List<IActivity> allActivities = new List<IActivity>();
-    private ActivityManagerView view;
 
     public void Init()
     {
         // Add all activities here
-        allActivities.Add(gameObject.AddComponent<DanceBattleActivity>());
+        allActivities.Add(new WillToSurviveActivity());
+    }
 
-        view = Instantiate(ResourceLoader.instance.GetPrefab("ActivityManagerView")).GetComponent<ActivityManagerView>();
-        view.Init();
+    public void RevealButtons(int numSlots)
+    {
+        if(numSlots > 4)
+        {
+
+        }
     }
 
     public void ShowAllAvailableActivities(List<SlotModel> slotItems)
     {
-        view.ClearActivities();
-
         foreach (IActivity activity in allActivities)
         {
-            if (activity.CalculateRequirements(slotItems))
+            if (activity.AreRequirementsFulfilled(slotItems))
             {
-                view.AddActivity(activity);
+               // view.AddActivity(activity);
             }
         }
 
-        view.CreateBlocks();
-    }
-
-    public void LayoutBlocks(List<Reel> reels)
-    {
-        view.LayoutBlocks(reels);
+       // view.CreateBlocks();
     }
 }

@@ -13,7 +13,6 @@ public class SlotManager : Singleton<SlotManager>
 
     private System.Random rand;
     private SlotManagerView view;
-   // private ActivityManager activityManager;
     private int currId;
 
     public void Init()
@@ -74,7 +73,6 @@ public class SlotManager : Singleton<SlotManager>
     {
         ShuffleModels();
         view.CreateNewGlobalReel(slotItems);
-       // activityManager.ShowAllAvailableActivities(slotItems);
     }
 
     /// <summary>
