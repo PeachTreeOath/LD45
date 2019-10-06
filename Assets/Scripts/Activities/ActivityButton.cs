@@ -35,6 +35,8 @@ public class ActivityButton : MonoBehaviour
 
     public void ShowActivity()
     {
+        if (isCompleted) return;
+
         titleText.text = origText;
 
         for (int i = 0; i < 10; i++)

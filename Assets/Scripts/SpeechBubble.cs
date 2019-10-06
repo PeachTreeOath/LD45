@@ -116,7 +116,14 @@ public class SpeechBubble : Singleton<SpeechBubble>
             callout1.enabled = true;
             callout2.enabled = true;
         }
-
+        if (person == 7)
+        {
+            callout1.enabled = true;
+            callout2.enabled = true;
+            callout3.enabled = true;
+            callout4.enabled = true;
+            callout5.enabled = true;
+        }
     }
 
     public void NextText()

@@ -10,8 +10,8 @@ public class BuildLabActivity : IActivity
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
         if (slotItems.Any(r => r.type == SlotType.WOOD) &&
-                    slotItems.Count(r => r.type == SlotType.WEAPONS) > 1 &&
-                    slotItems.Any(r => r.type == SlotType.TECH))
+            slotItems.Count(r => r.type == SlotType.TECH) > 2 &&
+            slotItems.Any(r => r.type == SlotType.STORM))
         {
             return true;
         }
@@ -21,7 +21,7 @@ public class BuildLabActivity : IActivity
 
     public void FailActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "Is this your first day on the job? Double-check the requirements." }, new List<int> { 5 });
+        SpeechBubble.instance.SpeakText(new List<string> { "Is this your first day on the job? We need an actual storm to help power the generator." }, new List<int> { 5 });
     }
 
     public void PerformActivity()

@@ -9,7 +9,6 @@ public class ThrowBeachPartyActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-
         for (int i = 0; i < slotItems.Count - 3; i++)
         {
             if (slotItems[i].type == SlotType.FOOD &&
@@ -18,10 +17,6 @@ public class ThrowBeachPartyActivity : IActivity
             {
                 return true;
             }
-        }
-        if (slotItems.Any(r => r.type == SlotType.MORALE))
-        {
-            return true;
         }
 
         return false;

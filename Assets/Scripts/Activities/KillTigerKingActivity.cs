@@ -9,7 +9,10 @@ public class KillTigerKingActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Any(r => r.type == SlotType.MORALE))
+        if (slotItems.Any(r => r.type == SlotType.FOOD) &&
+            slotItems.Any(r => r.type == SlotType.WOOD) &&
+                    slotItems.Count(r => r.type == SlotType.WEAPONS) > 1 &&
+                    slotItems.Any(r => r.type == SlotType.TECH))
         {
             return true;
         }
@@ -19,18 +22,16 @@ public class KillTigerKingActivity : IActivity
 
     public void FailActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "This beast needs wayyy more than that to take down!" }, new List<int> { 4 });
+        SpeechBubble.instance.SpeakText(new List<string> { "Lets use a mousey to lure it out!" }, new List<int> { 4 });
     }
-
 
     public void PerformActivity()
     {
         SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
 
-        //todo
+        GameManager.instance.dontSpawnTigers = true;
         GameManager.instance.MoveAfterWork();
     }
-
 
     public string GetTooltip()
     {

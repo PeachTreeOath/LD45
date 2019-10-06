@@ -3,15 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BuildRaftActivity : IActivity
 {
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Any(r => r.type == SlotType.MORALE))
+        if (slotItems.Count == 5)
         {
-            return true;
+            if (slotItems[0].type == SlotType.MORALE &&
+                slotItems[1].type == SlotType.FOOD &&
+                slotItems[2].type == SlotType.WOOD &&
+                slotItems[3].type == SlotType.WEAPONS &&
+                slotItems[4].type == SlotType.TECH)
+            {
+                return true;
+            }
         }
 
         return false;
@@ -24,10 +32,10 @@ public class BuildRaftActivity : IActivity
 
     public void PerformActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
+        SpeechBubble.instance.SpeakText(new List<string> { "YAHOO!" }, new List<int> { 7 });
 
-        GameManager.instance.maxMoves++;
-        GameManager.instance.MoveAfterWork();
+        //fade out
+        SceneManager.LoadScene("Victory");
     }
 
     public string GetTooltip()

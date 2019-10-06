@@ -9,7 +9,6 @@ public enum SlotType
     WOOD,
     WEAPONS,
     TECH,
-    EXPLORE,
     RATS,
     STORM,
     TIGER,

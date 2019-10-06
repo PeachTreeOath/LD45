@@ -38,6 +38,26 @@ public class StatManager : Singleton<StatManager>
             actionsText.color = errorColor;
         else
             actionsText.color = Color.white;
+
+        if (GameManager.instance.morale <= GameManager.instance.maxMorale)
+            GameManager.instance.upgradeArrows[0].enabled = false;
+        else
+            GameManager.instance.upgradeArrows[0].enabled = true;
+
+        if (GameManager.instance.food <= GameManager.instance.maxFood)
+            GameManager.instance.upgradeArrows[1].enabled = false;
+        else
+            GameManager.instance.upgradeArrows[1].enabled = true;
+
+        if (GameManager.instance.wood <= GameManager.instance.maxWood)
+            GameManager.instance.upgradeArrows[2].enabled = false;
+        else
+            GameManager.instance.upgradeArrows[2].enabled = true;
+
+        if (GameManager.instance.weapons <= GameManager.instance.maxWeapons)
+            GameManager.instance.upgradeArrows[3].enabled = false;
+        else
+            GameManager.instance.upgradeArrows[3].enabled = true;
     }
 
     public void ShowStatObjectCount(int count)

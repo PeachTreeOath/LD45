@@ -15,6 +15,10 @@ public class ResourceLoader : Singleton<ResourceLoader>
     [HideInInspector] public Sprite slotWood;
     [HideInInspector] public Sprite slotWeapons;
     [HideInInspector] public Sprite slotTech;
+    [HideInInspector] public Sprite slotRats;
+    [HideInInspector] public Sprite slotStorm;
+    [HideInInspector] public Sprite slotTiger;
+    [HideInInspector] public Sprite slotGorilla;
 
     [HideInInspector] public float tileSize;
 
@@ -31,6 +35,10 @@ public class ResourceLoader : Singleton<ResourceLoader>
         spriteDict.Add(SlotType.WOOD, slotWood);
         spriteDict.Add(SlotType.WEAPONS, slotWeapons);
         spriteDict.Add(SlotType.TECH, slotTech);
+        spriteDict.Add(SlotType.RATS, slotRats);
+        spriteDict.Add(SlotType.STORM, slotStorm);
+        spriteDict.Add(SlotType.TIGER, slotTiger);
+        spriteDict.Add(SlotType.GORILLA, slotGorilla);
 
         tileSize = slotMorale.bounds.size.x;
     }
@@ -53,6 +61,10 @@ public class ResourceLoader : Singleton<ResourceLoader>
         slotWood = Resources.Load<Sprite>("Textures/log");
         slotWeapons = Resources.Load<Sprite>("Textures/spear");
         slotTech = Resources.Load<Sprite>("Textures/bulb");
+        slotRats = Resources.Load<Sprite>("Textures/rat");
+        slotStorm = Resources.Load<Sprite>("Textures/storm");
+        slotTiger = Resources.Load<Sprite>("Textures/tiger");
+        slotGorilla = Resources.Load<Sprite>("Textures/gorilla");
     }
 
     public GameObject GetPrefab(string prefabName)

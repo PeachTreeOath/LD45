@@ -19,7 +19,7 @@ public class ExploreActivity : IActivity
 
     public void FailActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "I sense danger, let's make sure we all have weapons!" }, new List<int> { 2 });
+        SpeechBubble.instance.SpeakText(new List<string> { "Danger ahead, let's make sure we all have weapons!" }, new List<int> { 2 });
     }
 
     public void PerformActivity()
