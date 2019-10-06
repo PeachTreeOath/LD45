@@ -9,6 +9,7 @@ public class ThrowBeachPartyActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
+        //for
         if (slotItems.Any(r => r.type == SlotType.MORALE))
         {
             return true;
@@ -26,7 +27,12 @@ public class ThrowBeachPartyActivity : IActivity
     {
         SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
 
-        GameManager.instance.maxMoves++;
+        GameManager.instance.morale += 10;
         GameManager.instance.MoveAfterWork();
+    }
+
+    public string GetTooltip()
+    {
+        return "Gives 50 Morale instantly";
     }
 }

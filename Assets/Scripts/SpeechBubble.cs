@@ -8,6 +8,8 @@ public class SpeechBubble : Singleton<SpeechBubble>
 {
     public TextMeshProUGUI text;
     public TextMeshProUGUI continueText;
+    public TextMeshProUGUI tooltipText;
+
     public Image bubbleImage;
     public Image callout1;
     public Image callout2;
@@ -21,13 +23,46 @@ public class SpeechBubble : Singleton<SpeechBubble>
     private List<string> currTextList;
     private List<int> currPersonList;
     private int lineIdx;
+    private bool isShowingTooltip;
+    private bool isShowingSpeech;
 
     private static Color whiteFadeColor = new Color(1, 1, 1, 0);
     private static Color blackFadeColor = new Color(0, 0, 0, 0);
 
-    public void SpeakText(List<string> textList, List<int> personList)
+    public void ShowTooltip(string toolTip)
+    {
+        text.enabled = false;
+        continueText.enabled = false;
+        bubbleImage.enabled = true;
+
+        callout1.enabled = false;
+        callout2.enabled = false;
+        callout3.enabled = false;
+        callout4.enabled = false;
+        callout5.enabled = false;
+
+        tooltipText.enabled = true;
+
+        tooltipText.text = toolTip;
+        isShowingTooltip = true;
+    }
+
+    public void HideTooltip()
+    {
+        tooltipText.enabled = false;
+        isShowingTooltip = false;
+
+        if (isShowingSpeech)
+            SpeakText(currTextList, currPersonList, lineIdx);
+    }
+
+    public void SpeakText(List<string> textList, List<int> personList, int index = 0)
     {
         StopAllCoroutines();
+
+        tooltipText.enabled = false;
+        isShowingTooltip = false;
+
         nextButton.enabled = true;
 
         bubbleImage.color = Color.white;
@@ -45,9 +80,10 @@ public class SpeechBubble : Singleton<SpeechBubble>
 
         currTextList = textList;
         currPersonList = personList;
-        lineIdx = 0;
+        lineIdx = index;
 
         SpeakLine(currTextList[lineIdx], currPersonList[lineIdx]);
+        isShowingSpeech = true;
     }
 
     private void SpeakLine(string line, int person)
@@ -73,7 +109,7 @@ public class SpeechBubble : Singleton<SpeechBubble>
             callout4.enabled = true;
         if (person == 5)
             callout5.enabled = true;
-        if(person == 6)
+        if (person == 6)
         {
             callout1.enabled = true;
             callout2.enabled = true;
@@ -83,6 +119,12 @@ public class SpeechBubble : Singleton<SpeechBubble>
 
     public void NextText()
     {
+        if (isShowingTooltip)
+        {
+            HideTooltip();
+            return;
+        }
+
         lineIdx++;
 
         if (lineIdx < currTextList.Count)
@@ -97,7 +139,7 @@ public class SpeechBubble : Singleton<SpeechBubble>
         {
             nextButton.enabled = false;
             continueText.enabled = false;
-
+            isShowingSpeech = false;
             StartCoroutine("FadeOut");
         }
     }

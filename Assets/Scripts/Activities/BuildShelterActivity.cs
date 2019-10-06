@@ -9,7 +9,7 @@ public class BuildShelterActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Any(r => r.type == SlotType.MORALE))
+        if (slotItems.Count(r => r.type == SlotType.WOOD) > 1)
         {
             return true;
         }
@@ -28,5 +28,10 @@ public class BuildShelterActivity : IActivity
 
         GameManager.instance.maxMoves++;
         GameManager.instance.MoveAfterWork();
+    }
+
+    public string GetTooltip()
+    {
+        return "Doubles each resource's maximum capacity";
     }
 }

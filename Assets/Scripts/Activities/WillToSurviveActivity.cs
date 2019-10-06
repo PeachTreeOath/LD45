@@ -29,4 +29,9 @@ public class WillToSurviveActivity : IActivity
         GameManager.instance.maxMoves++;
         GameManager.instance.MoveAfterWork();
     }
+
+    public string GetTooltip()
+    {
+        return "Adds 1 more action per day";
+    }
 }

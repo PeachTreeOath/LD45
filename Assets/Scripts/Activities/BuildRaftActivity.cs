@@ -29,4 +29,9 @@ public class BuildRaftActivity : IActivity
         GameManager.instance.maxMoves++;
         GameManager.instance.MoveAfterWork();
     }
+
+    public string GetTooltip()
+    {
+        return "Wins the game!";
+    }
 }

@@ -30,4 +30,10 @@ public class KillTigerKingActivity : IActivity
         GameManager.instance.maxMoves++;
         GameManager.instance.MoveAfterWork();
     }
+
+
+    public string GetTooltip()
+    {
+        return "Prevent more tigers from spawning";
+    }
 }

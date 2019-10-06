@@ -9,7 +9,9 @@ public class CraftBowActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Any(r => r.type == SlotType.MORALE))
+        if (slotItems.Any(r => r.type == SlotType.WOOD) &&
+                    slotItems.Count(r => r.type == SlotType.WEAPONS) > 1 &&
+                    slotItems.Any(r => r.type == SlotType.TECH))
         {
             return true;
         }
@@ -28,5 +30,10 @@ public class CraftBowActivity : IActivity
 
         GameManager.instance.maxMoves++;
         GameManager.instance.MoveAfterWork();
+    }
+
+    public string GetTooltip()
+    {
+        return "Negates effect of 1 tiger per day";
     }
 }

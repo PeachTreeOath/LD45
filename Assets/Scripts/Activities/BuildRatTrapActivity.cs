@@ -9,7 +9,7 @@ public class BuildRatTrapActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Any(r => r.type == SlotType.MORALE))
+        if (slotItems.Any(r => r.type == SlotType.MORALE) && slotItems.Any(r => r.type == SlotType.FOOD))
         {
             return true;
         }
@@ -28,5 +28,10 @@ public class BuildRatTrapActivity : IActivity
 
         GameManager.instance.maxMoves++;
         GameManager.instance.MoveAfterWork();
+    }
+
+    public string GetTooltip()
+    {
+        return "Rats only take 1 food each instead of 3";
     }
 }

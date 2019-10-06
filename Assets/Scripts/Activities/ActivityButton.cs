@@ -58,6 +58,9 @@ public class ActivityButton : MonoBehaviour
 
     public void SetToComplete()
     {
+        if (!isActivated)
+            return;
+
         foreach (GameObject obj in requirementObjects)
             obj.SetActive(false);
 
@@ -68,12 +71,15 @@ public class ActivityButton : MonoBehaviour
 
     public void ToggleHighlight(bool toggle)
     {
-        if (isActivated && !isCompleted)
+        if (!isActivated || isCompleted)
         {
-            if (toggle)
-                buttonImageForHighlight.color = highlightColor;
-            else
-                buttonImageForHighlight.color = Color.white;
+            buttonImageForHighlight.color = Color.gray;
+            return;
         }
+
+        if (toggle)
+            buttonImageForHighlight.color = highlightColor;
+        else
+            buttonImageForHighlight.color = Color.white;
     }
 }

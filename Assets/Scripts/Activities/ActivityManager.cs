@@ -65,10 +65,13 @@ public class ActivityManager : Singleton<ActivityManager>
         if (activity.AreRequirementsFulfilled(SlotManager.instance.GetCurrentReelModels()))
         {
             ActivityButton activityButton = activityButtons[activityNumber];
-            if (!activityButton.isCompleted)
+            if (activityButton.isActivated)
             {
-                activityButtons[activityNumber].SetToComplete();
-                activity.PerformActivity();
+                if (!activityButton.isCompleted)
+                {
+                    activityButtons[activityNumber].SetToComplete();
+                    activity.PerformActivity();
+                }
             }
         }
         else
@@ -89,5 +92,15 @@ public class ActivityManager : Singleton<ActivityManager>
 
             activityNumber++;
         }
+    }
+
+    public void ShowTooltip(int activityNumber)
+    {
+        SpeechBubble.instance.ShowTooltip(allActivities[activityNumber].GetTooltip());
+    }
+
+    public void HideTooltip()
+    {
+        SpeechBubble.instance.HideTooltip();
     }
 }

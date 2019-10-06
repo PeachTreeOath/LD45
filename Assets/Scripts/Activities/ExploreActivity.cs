@@ -9,7 +9,7 @@ public class ExploreActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Any(r => r.type == SlotType.MORALE))
+        if (slotItems.Count(r => r.type == SlotType.WEAPONS) > 2)
         {
             return true;
         }
@@ -28,5 +28,10 @@ public class ExploreActivity : IActivity
 
         GameManager.instance.maxMoves++;
         GameManager.instance.MoveAfterWork();
+    }
+
+    public string GetTooltip()
+    {
+        return "Adds a 4th person to the group";
     }
 }

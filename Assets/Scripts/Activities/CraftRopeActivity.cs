@@ -9,7 +9,8 @@ public class CraftRopeActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Any(r => r.type == SlotType.MORALE))
+        if (slotItems.Count(r => r.type == SlotType.WOOD) > 1 &&
+                    slotItems.Count(r => r.type == SlotType.TECH) > 1)
         {
             return true;
         }
@@ -28,5 +29,10 @@ public class CraftRopeActivity : IActivity
 
         GameManager.instance.maxMoves++;
         GameManager.instance.MoveAfterWork();
+    }
+
+    public string GetTooltip()
+    {
+        return "Adds a 5th person to the group";
     }
 }

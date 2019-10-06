@@ -39,14 +39,15 @@ public class GameManager : Singleton<GameManager>
 
         maxTech = 100;
 
-        maxMoves = 5;
+        maxMoves = 4;
         numCharacters = 1;
 
         StartNewDay();
         StatManager.instance.ShowStatObjectCount(2);
         ActivityManager.instance.RevealButtons(1);
+        ActivityManager.instance.ShowAllAvailableActivities(SlotManager.instance.GetCurrentReelModels());
 
-        SpeechBubble.instance.SpeakText(new List<string> { "Ow my head...", "Why me?" }, new List<int> { 1, 4 });
+        //SpeechBubble.instance.SpeakText(new List<string> { "Ow my head...", "Why me?" }, new List<int> { 1, 4 });
     }
 
     public void DoWork()
