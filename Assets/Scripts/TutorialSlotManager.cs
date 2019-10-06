@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SlotManager : Singleton<SlotManager>
+public class TutorialSlotManager : Singleton<TutorialSlotManager>
 {
 
     private Dictionary<int, int> reelMap = new Dictionary<int, int>(); // Maps reel number to global reel index
@@ -18,26 +18,15 @@ public class SlotManager : Singleton<SlotManager>
 
     public void Init()
     {
-            ActivityManager.instance.Init();
-
         rand = new System.Random();
         GameObject viewObj = ResourceLoader.instance.GetPrefab("SlotManagerView");
         view = Instantiate(viewObj).GetComponent<SlotManagerView>();
         view.transform.SetParent(transform);
         view.Init();
 
-        if (GameManager.instance.numCharacters == 1)
-        {
-            reels.Add(setupReels[0]);
-            setupReels[1].gameObject.SetActive(false);
-            setupReels[2].gameObject.SetActive(false);
-            setupReels[3].gameObject.SetActive(false);
-            setupReels[4].gameObject.SetActive(false);
-        }
-        else
-        {
-            // Debugging only, show all 5
-        }
+
+        reels.Add(setupReels[0]);
+        reels.Add(setupReels[1]);
     }
 
     public void ShowNewCharacter(int charSlot)
@@ -74,7 +63,7 @@ public class SlotManager : Singleton<SlotManager>
     /// </summary>
     public void SpinReels()
     {
-        if (GameManager.instance.movesLeft <= 0)
+        if (TutorialGameManager.instance.movesLeft <= 0)
             return;
 
         foreach (Reel reel in reels)
@@ -83,8 +72,7 @@ public class SlotManager : Singleton<SlotManager>
             SetReelToModel(reel.reelNumber, idx);
         }
 
-        ActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
-        GameManager.instance.UseMove();
+        TutorialGameManager.instance.UseMove();
     }
 
     public void CreateNewGlobalReel()
@@ -99,7 +87,7 @@ public class SlotManager : Singleton<SlotManager>
     /// <param name="reelNumber"></param>
     public void MoveReelUp(int reelNumber)
     {
-        if (GameManager.instance.movesLeft <= 0)
+        if (TutorialGameManager.instance.movesLeft <= 0)
             return;
 
         int nextIndex = reelMap[reelNumber];
@@ -110,8 +98,7 @@ public class SlotManager : Singleton<SlotManager>
         }
 
         SetReelToModel(reelNumber, nextIndex);
-        ActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
-        GameManager.instance.UseMove();
+        TutorialGameManager.instance.UseMove();
     }
 
     /// <summary>
@@ -120,7 +107,7 @@ public class SlotManager : Singleton<SlotManager>
     /// <param name="reelNumber"></param>
     public void MoveReelDown(int reelNumber)
     {
-        if (GameManager.instance.movesLeft <= 0)
+        if (TutorialGameManager.instance.movesLeft <= 0)
             return;
 
         int nextIndex = reelMap[reelNumber];
@@ -131,8 +118,7 @@ public class SlotManager : Singleton<SlotManager>
         }
 
         SetReelToModel(reelNumber, nextIndex);
-        ActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
-        GameManager.instance.UseMove();
+        TutorialGameManager.instance.UseMove();
     }
 
     /// <summary>

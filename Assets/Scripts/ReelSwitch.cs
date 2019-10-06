@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class ReelSwitch : MonoBehaviour {
+public class ReelSwitch : MonoBehaviour
+{
 
     public bool isDirectionUp;
 
@@ -15,7 +17,7 @@ public class ReelSwitch : MonoBehaviour {
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         normalSprite = spriteRenderer.sprite;
-        if(isDirectionUp)
+        if (isDirectionUp)
             hoverSprite = ResourceLoader.instance.GetSprite("reelUpHover");
         else
             hoverSprite = ResourceLoader.instance.GetSprite("reelDownHover");
@@ -24,10 +26,20 @@ public class ReelSwitch : MonoBehaviour {
 
     void OnMouseDown()
     {
-        if(isDirectionUp)
-            SlotManager.instance.MoveReelUp(reelNumber);
+        if (SceneManager.GetActiveScene().name.Equals("TitleScreen"))
+        {
+            if (isDirectionUp)
+                TutorialSlotManager.instance.MoveReelUp(reelNumber);
+            else
+                TutorialSlotManager.instance.MoveReelDown(reelNumber);
+        }
         else
-            SlotManager.instance.MoveReelDown(reelNumber);
+        {
+            if (isDirectionUp)
+                SlotManager.instance.MoveReelUp(reelNumber);
+            else
+                SlotManager.instance.MoveReelDown(reelNumber);
+        }
     }
 
     void OnMouseEnter()

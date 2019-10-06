@@ -76,7 +76,9 @@ public class ActivityManager : Singleton<ActivityManager>
         }
         else
         {
-            activity.FailActivity();
+            ActivityButton activityButton = activityButtons[activityNumber];
+            if (!activityButton.isCompleted)
+                activity.FailActivity();
         }
     }
 

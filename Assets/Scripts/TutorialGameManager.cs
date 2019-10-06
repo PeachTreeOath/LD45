@@ -12,37 +12,29 @@ public class TutorialGameManager : Singleton<TutorialGameManager>
     [HideInInspector] public int movesLeft;
     [HideInInspector] public int maxMoves;
 
-
-    public List<Image> upgradeArrows;
     public Button spinButton;
-    public TextMeshProUGUI tipText;
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            movesLeft += 10;
-            StatManager.instance.UpdateText();
-        }
-    }
 
     // Use this for initialization
     void Start()
     {
         movesLeft = 999;
         maxMoves = 999;
+
+        InitSlotData();
     }
 
     public void DoWork()
     {
-
+        List<SlotModel> slots = TutorialSlotManager.instance.GetCurrentReelModels();
+        if (slots[0].type == SlotType.START && slots[1].type == SlotType.GAME)
+            SceneManager.LoadScene("Game");
     }
 
     // Return true if new day
     public bool UseMove()
     {
         movesLeft--;
-        StatManager.instance.UpdateText();
+        TutorialStatManager.instance.UpdateText();
         if (movesLeft == 0)
         {
             movesLeft = 999;
@@ -54,14 +46,15 @@ public class TutorialGameManager : Singleton<TutorialGameManager>
 
     private void InitSlotData()
     {
-        SlotManager.instance.Init();
-        SlotManager.instance.AddModel(new SlotModel(SlotType.START));
-        SlotManager.instance.AddModel(new SlotModel(SlotType.GAME));
-        SlotManager.instance.AddModel(new SlotModel(SlotType.FOOD));
-        SlotManager.instance.AddModel(new SlotModel(SlotType.FOOD));
-        SlotManager.instance.AddModel(new SlotModel(SlotType.FOOD));
-        SlotManager.instance.AddModel(new SlotModel(SlotType.FOOD));
-        SlotManager.instance.CreateNewGlobalReel();
-        SlotManager.instance.SpinReels();
+        TutorialSlotManager.instance.Init();
+        TutorialSlotManager.instance.AddModel(new SlotModel(SlotType.START));
+        TutorialSlotManager.instance.AddModel(new SlotModel(SlotType.GAME));
+        TutorialSlotManager.instance.AddModel(new SlotModel(SlotType.MORALE));
+        TutorialSlotManager.instance.AddModel(new SlotModel(SlotType.FOOD));
+        TutorialSlotManager.instance.AddModel(new SlotModel(SlotType.WOOD));
+        TutorialSlotManager.instance.AddModel(new SlotModel(SlotType.WEAPONS));
+        TutorialSlotManager.instance.AddModel(new SlotModel(SlotType.TECH));
+        TutorialSlotManager.instance.CreateNewGlobalReel();
+        TutorialSlotManager.instance.SpinReels();
     }
 }

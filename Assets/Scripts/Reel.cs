@@ -21,7 +21,7 @@ public class Reel : MonoBehaviour
     void Start()
     {
         yLimit = transform.position.y - ResourceLoader.instance.tileSize;
-        //totalSlotHeight = CalculateTotalSlotHeight();
+        totalSlotHeight = CalculateTotalSlotHeight();
     }
 
     // Update is called once per frame

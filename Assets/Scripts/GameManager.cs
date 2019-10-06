@@ -191,7 +191,7 @@ public class GameManager : Singleton<GameManager>
 
     public void EndDay()
     {
-        food -= 2 * numCharacters;
+        food -= 1 * numCharacters;
 
         if (food < 0)
         {

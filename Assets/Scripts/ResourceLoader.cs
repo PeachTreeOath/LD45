@@ -41,7 +41,7 @@ public class ResourceLoader : Singleton<ResourceLoader>
         spriteDict.Add(SlotType.STORM, slotStorm);
         spriteDict.Add(SlotType.TIGER, slotTiger);
         spriteDict.Add(SlotType.GORILLA, slotGorilla);
-        spriteDict.Add(SlotType.START, slotTiger);
+        spriteDict.Add(SlotType.START, slotStart);
         spriteDict.Add(SlotType.GAME, slotGame);
 
         tileSize = slotMorale.bounds.size.x;

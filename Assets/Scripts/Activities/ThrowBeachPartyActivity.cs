@@ -9,7 +9,7 @@ public class ThrowBeachPartyActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        for (int i = 0; i < slotItems.Count - 3; i++)
+        for (int i = 0; i < slotItems.Count - 2; i++)
         {
             if (slotItems[i].type == SlotType.FOOD &&
                 slotItems[i + 1].type == SlotType.MORALE &&
