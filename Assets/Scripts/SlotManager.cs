@@ -9,7 +9,8 @@ public class SlotManager : Singleton<SlotManager>
 
     private Dictionary<int, int> reelMap = new Dictionary<int, int>(); // Maps reel number to global reel index
     private List<SlotModel> slotItems = new List<SlotModel>(); // Global slot list
-    public List<Reel> reels = new List<Reel>(); // In hierarchy reels
+    public List<Reel> setupReels = new List<Reel>(); // In hierarchy reels
+    [HideInInspector] public List<Reel> reels = new List<Reel>(); // In play reels
 
     private System.Random rand;
     private SlotManagerView view;
@@ -25,11 +26,24 @@ public class SlotManager : Singleton<SlotManager>
         view.transform.SetParent(transform);
         view.Init();
 
-        reels.Add(GameObject.Find("Reel1").GetComponent<Reel>());
-        reels.Add(GameObject.Find("Reel2").GetComponent<Reel>());
-        reels.Add(GameObject.Find("Reel3").GetComponent<Reel>());
-        reels.Add(GameObject.Find("Reel4").GetComponent<Reel>());
-        reels.Add(GameObject.Find("Reel5").GetComponent<Reel>());
+        if (GameManager.instance.numCharacters == 1)
+        {
+            reels.Add(setupReels[0]);
+            setupReels[1].gameObject.SetActive(false);
+            setupReels[2].gameObject.SetActive(false);
+            setupReels[3].gameObject.SetActive(false);
+            setupReels[4].gameObject.SetActive(false);
+        }
+        else
+        {
+            // Debugging only, show all 5
+        }
+    }
+
+    public void ShowNewCharacter(int charSlot)
+    {
+        setupReels[charSlot].gameObject.SetActive(true);
+        reels.Add(setupReels[charSlot]);
     }
 
     /// <summary>

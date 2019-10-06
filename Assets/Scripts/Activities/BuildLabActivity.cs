@@ -28,12 +28,16 @@ public class BuildLabActivity : IActivity
     {
         SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
 
-        GameManager.instance.maxMoves++;
+        GameManager.instance.moraleGainAmt = 2;
+        GameManager.instance.foodGainAmt = 2;
+        GameManager.instance.woodGainAmt = 2;
+        GameManager.instance.weaponsGainAmt = 2;
+        GameManager.instance.techGainAmt = 2;
         GameManager.instance.MoveAfterWork();
     }
 
     public string GetTooltip()
     {
-        return "Adds 2 Tech slots to the reel";
+        return "Doubles resources gained from reels";
     }
 }

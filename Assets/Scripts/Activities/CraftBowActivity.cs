@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+//NOTE: This is now build storage
 public class CraftBowActivity : IActivity
 {
 
@@ -21,19 +22,19 @@ public class CraftBowActivity : IActivity
 
     public void FailActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "Teamwork guys! We need all sort of help on this one." }, new List<int> { 1 });
+        SpeechBubble.instance.SpeakText(new List<string> { "Teamwork guys! We need all sorts of help on this one." }, new List<int> { 1 });
     }
 
     public void PerformActivity()
     {
         SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
 
-        GameManager.instance.maxMoves++;
+        GameManager.instance.DoubleStorage();
         GameManager.instance.MoveAfterWork();
     }
 
     public string GetTooltip()
     {
-        return "Negates effect of 1 tiger per day";
+        return "Doubles each resource's maximum capacity";
     }
 }

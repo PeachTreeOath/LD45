@@ -26,12 +26,12 @@ public class BuildShelterActivity : IActivity
     {
         SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
 
-        GameManager.instance.maxMoves++;
+        GameManager.instance.shelterBuilt = true;
         GameManager.instance.MoveAfterWork();
     }
 
     public string GetTooltip()
     {
-        return "Doubles each resource's maximum capacity";
+        return "Negates 1 Storm reel when using Work";
     }
 }

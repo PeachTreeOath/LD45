@@ -22,8 +22,6 @@ public class Reel : MonoBehaviour
     {
         yLimit = transform.position.y - ResourceLoader.instance.tileSize;
         //totalSlotHeight = CalculateTotalSlotHeight();
-
-        singleSlot = GetComponentInChildren<SlotItem>();
     }
 
     // Update is called once per frame
@@ -47,7 +45,7 @@ public class Reel : MonoBehaviour
     public void SetCurrentSlotModel(SlotModel model)
     {
         currentSlotModel = model;
-        singleSlot.SetModel(model);
+        GetComponentInChildren<SlotItem>().SetModel(model);
     }
 
     public void Spin()

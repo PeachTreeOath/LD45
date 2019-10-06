@@ -24,7 +24,7 @@ public class ActivityButton : MonoBehaviour
     public Image buttonImageForHighlight;
     private static Color highlightColor = new Color(.7f, 1, .7f, 1);
 
-    private void Start()
+    private void Awake()
     {
         origText = titleText.text;
         titleText.text = blankText;

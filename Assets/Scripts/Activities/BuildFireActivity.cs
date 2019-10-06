@@ -26,7 +26,7 @@ public class BuildFireActivity : IActivity
     {
         SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
 
-        GameManager.instance.maxMoves++;
+        GameManager.instance.UnlockNewCharacter();
         GameManager.instance.MoveAfterWork();
     }
 

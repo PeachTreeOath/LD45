@@ -33,7 +33,7 @@ public class SpeechBubble : Singleton<SpeechBubble>
     {
         text.enabled = false;
         continueText.enabled = false;
-        bubbleImage.enabled = true;
+        bubbleImage.color = Color.white;
 
         callout1.enabled = false;
         callout2.enabled = false;
@@ -54,6 +54,8 @@ public class SpeechBubble : Singleton<SpeechBubble>
 
         if (isShowingSpeech)
             SpeakText(currTextList, currPersonList, lineIdx);
+        else
+            HideImmediate();
     }
 
     public void SpeakText(List<string> textList, List<int> personList, int index = 0)
@@ -127,7 +129,7 @@ public class SpeechBubble : Singleton<SpeechBubble>
 
         lineIdx++;
 
-        if (lineIdx < currTextList.Count)
+        if (currTextList != null && lineIdx < currTextList.Count)
         {
             SpeakLine(currTextList[lineIdx], currPersonList[lineIdx]);
             if (lineIdx + 1 < currTextList.Count)
@@ -142,6 +144,18 @@ public class SpeechBubble : Singleton<SpeechBubble>
             isShowingSpeech = false;
             StartCoroutine("FadeOut");
         }
+    }
+
+    public void HideImmediate()
+    {
+        bubbleImage.color = whiteFadeColor;
+        callout1.color = whiteFadeColor;
+        callout2.color = whiteFadeColor;
+        callout3.color = whiteFadeColor;
+        callout4.color = whiteFadeColor;
+        callout5.color = whiteFadeColor;
+        text.color = blackFadeColor;
+        continueText.enabled = false;
     }
 
     IEnumerator FadeOut()
@@ -161,7 +175,6 @@ public class SpeechBubble : Singleton<SpeechBubble>
             callout4.color = whiteFade;
             callout5.color = whiteFade;
             text.color = blackFade;
-            continueText.color = whiteFade;
 
             yield return null;
         }
@@ -173,6 +186,6 @@ public class SpeechBubble : Singleton<SpeechBubble>
         callout4.color = whiteFadeColor;
         callout5.color = whiteFadeColor;
         text.color = blackFadeColor;
-        continueText.color = whiteFadeColor;
+        continueText.enabled = false;
     }
 }

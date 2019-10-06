@@ -27,7 +27,7 @@ public class GoFishingActivity : IActivity
         SpeechBubble.instance.SpeakText(new List<string> { "I'm starving... can't believe I finally caught some-HEY a person!",
             "FOOOOOOOOD *scarfs fish down*",
             "There's enough for both of us you know...",
-            "Please I am a descendant of Spanish explorers. I can get my own fish once... I eat these ones.",
+            "Oh please. I am a descendant of Spanish explorers. I can get my own fish... once I eat these ones.",
             "Well I'm still starving, but I see you have a hatchet. We can work with that.",
         }, new List<int> { 1, 2, 1, 2, 1 });
 
