@@ -13,5 +13,7 @@ public enum SlotType
     RATS,
     STORM,
     TIGER,
-    GORILLA
+    GORILLA,
+    START,
+    GAME
 }

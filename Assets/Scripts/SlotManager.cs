@@ -17,8 +17,7 @@ public class SlotManager : Singleton<SlotManager>
 
     public void Init()
     {
-      //  activityManager = gameObject.AddComponent<ActivityManager>();
-      //  activityManager.Init();
+        ActivityManager.instance.Init();
 
         rand = new System.Random();
         GameObject viewObj = ResourceLoader.instance.GetPrefab("SlotManagerView");
@@ -51,6 +50,11 @@ public class SlotManager : Singleton<SlotManager>
         slotItems = slotItems.OrderBy(x => rand.Next()).ToList();
     }
 
+    public List<SlotModel> GetCurrentReelModels()
+    {
+        return reels.Select(x => x.currentSlotModel).ToList();
+    }
+
     /// <summary>
     /// Takes each reel and gives it a random item from global list
     /// </summary>
@@ -64,8 +68,8 @@ public class SlotManager : Singleton<SlotManager>
             int idx = rand.Next(0, slotItems.Count);
             SetReelToModel(reel.reelNumber, idx);
         }
-        // activityManager.LayoutBlocks(reels);
 
+        ActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
         GameManager.instance.UseMove();
     }
 
@@ -92,7 +96,7 @@ public class SlotManager : Singleton<SlotManager>
         }
 
         SetReelToModel(reelNumber, nextIndex);
-
+        ActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
         GameManager.instance.UseMove();
     }
 
@@ -113,7 +117,7 @@ public class SlotManager : Singleton<SlotManager>
         }
 
         SetReelToModel(reelNumber, nextIndex);
-
+        ActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
         GameManager.instance.UseMove();
     }
 
@@ -136,7 +140,7 @@ public class SlotManager : Singleton<SlotManager>
             if (reel.reelNumber == reelNumber)
             {
                 reel.SetCurrentSlotModel(currModel); // Set reel image
-                if(prevModel != null)
+                if (prevModel != null)
                     view.SetSlotModelDecorations(reel.reelNumber, prevModel, false); // Set preview decorations
                 view.SetSlotModelDecorations(reel.reelNumber, currModel, true); // Set preview decorations
                 reelMap[reel.reelNumber] = slotIdx;

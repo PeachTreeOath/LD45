@@ -17,7 +17,7 @@ public class GameManager : Singleton<GameManager>
     [HideInInspector] public int maxFood = 10;
     [HideInInspector] public int maxWood = 10;
     [HideInInspector] public int maxWeapons = 10;
-    [HideInInspector] public int maxTech = 10;
+    [HideInInspector] public int maxTech;
 
     [HideInInspector] public int moraleGainAmt = 1;
     [HideInInspector] public int foodGainAmt = 1;
@@ -36,33 +36,21 @@ public class GameManager : Singleton<GameManager>
     {
         morale = 5;
         food = 5;
+
+        maxTech = 100;
+
         maxMoves = 5;
         numCharacters = 1;
 
         StartNewDay();
         StatManager.instance.ShowStatObjectCount(2);
+        ActivityManager.instance.RevealButtons(1);
+
+        SpeechBubble.instance.SpeakText(new List<string> { "Ow my head...", "Why me?" }, new List<int> { 1, 4 });
     }
 
     public void DoWork()
     {
-        // Check for all of a kind
-        SlotType firstSlotType = SlotManager.instance.reels[0].currentSlotModel.type;
-        bool allOfAKind = true;
-        foreach (Reel reel in SlotManager.instance.reels)
-        {
-            if (reel.currentSlotModel.type != firstSlotType)
-            {
-                allOfAKind = false;
-                break;
-            }
-        }
-
-        // Process all of a kind
-        if (allOfAKind)
-        {
-            // check tracks
-        }
-
         foreach (Reel reel in SlotManager.instance.reels)
         {
             switch (reel.currentSlotModel.type)
@@ -85,6 +73,11 @@ public class GameManager : Singleton<GameManager>
             }
         }
 
+        MoveAfterWork();
+    }
+
+    public void MoveAfterWork()
+    {
         if (movesLeft > 0)
             SlotManager.instance.SpinReels();
         else
@@ -128,11 +121,10 @@ public class GameManager : Singleton<GameManager>
 
 
         // New day conditions
-        if(day == 3)
+        if (day == 3)
         {
 
         }
-
 
 
         movesLeft = 100; // Just a buffer to get initial moves in
@@ -153,6 +145,7 @@ public class GameManager : Singleton<GameManager>
     {
         numCharacters++;
         StatManager.instance.ShowStatObjectCount(numCharacters + 1);
+        ActivityManager.instance.RevealButtons(numCharacters);
     }
 
     private void InitSlotData()
