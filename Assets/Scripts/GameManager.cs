@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -40,6 +41,7 @@ public class GameManager : Singleton<GameManager>
 
     public List<Image> upgradeArrows;
     public Button spinButton;
+    public TextMeshProUGUI tipText;
 
     private void Update()
     {

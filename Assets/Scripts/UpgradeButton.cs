@@ -6,10 +6,10 @@ public class UpgradeButton : MonoBehaviour
 {
     public int resourceType;
 
-    private static string tooltip0 = "Morale: When you reach negative Morale you will lose the game. When upgraded you will gain 1 Action a day.";
-    private static string tooltip1 = "Food: Each person eats 2 Food a day. You will lose Morale when < 0 Food. When upgraded you will gain 1 Action a day.";
-    private static string tooltip2 = "Wood: Protects from Storms (-3 Wood). You will lose Morale when < 0 Wood. When upgraded you will gain 1 Action a day.";
-    private static string tooltip3 = "Morale: Fends off Tigers (-3 Weapons). You will lose Morale when < 0 Weapon. When upgraded you will gain 1 Action a day.";
+    private static string tooltip0 = "Morale: If you have negative Morale at end of day you will lose the game. When upgraded you will gain 1 Action a day.";
+    private static string tooltip1 = "Food: Each person eats 2 Food a day. You will lose Morale when < 0 Food at end of day. When upgraded you will gain 1 Action a day.";
+    private static string tooltip2 = "Wood: Protects from Storms (-3 Wood). You will lose Morale when < 0 Wood at end of day. When upgraded you will gain 1 Action a day.";
+    private static string tooltip3 = "Morale: Fends off Tigers (-3 Weapons). You will lose Morale when < 0 Weapon at end of day. When upgraded you will gain 1 Action a day.";
     private static string tooltip4 = "Tech: Necessary to win the game. Cannot lose or upgrade Tech.";
 
     public void OnClick()
