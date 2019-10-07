@@ -9,9 +9,14 @@ public class ExploreActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Count(r => r.type == SlotType.WEAPONS) > 2)
+        for (int i = 0; i < slotItems.Count - 2; i++)
         {
-            return true;
+            if (slotItems[i].type == SlotType.WEAPONS &&
+                slotItems[i + 1].type == SlotType.WEAPONS &&
+                slotItems[i + 2].type == SlotType.WEAPONS)
+            {
+                return true;
+            }
         }
 
         return false;
@@ -24,7 +29,7 @@ public class ExploreActivity : IActivity
 
     public void PerformActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
+        // SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
 
         GameManager.instance.UnlockNewCharacter();
         GameManager.instance.MoveAfterWork();
@@ -32,6 +37,6 @@ public class ExploreActivity : IActivity
 
     public string GetTooltip()
     {
-        return "Adds a 4th person to the group";
+        return "Adds a 4th person to the group (adds 1 Tech)";
     }
 }

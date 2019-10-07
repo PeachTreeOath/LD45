@@ -9,10 +9,15 @@ public class CraftRopeActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Count(r => r.type == SlotType.WOOD) > 1 &&
-                    slotItems.Count(r => r.type == SlotType.TECH) > 1)
+        for (int i = 0; i < slotItems.Count - 3; i++)
         {
-            return true;
+            if (slotItems[i].type == SlotType.WOOD &&
+                slotItems[i + 1].type == SlotType.TECH &&
+                slotItems[i + 2].type == SlotType.WOOD &&
+                slotItems[i + 3].type == SlotType.TECH)
+            {
+                return true;
+            }
         }
 
         return false;
@@ -25,7 +30,7 @@ public class CraftRopeActivity : IActivity
 
     public void PerformActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
+        //SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
 
         GameManager.instance.UnlockNewCharacter();
         GameManager.instance.MoveAfterWork();
@@ -33,6 +38,6 @@ public class CraftRopeActivity : IActivity
 
     public string GetTooltip()
     {
-        return "Adds a 5th person to the group";
+        return "Adds a 5th person to the group (adds 2 Tech)";
     }
 }

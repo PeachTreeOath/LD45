@@ -4,14 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+// Now is cut vegetations
 public class BuildShelterActivity : IActivity
 {
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Count(r => r.type == SlotType.WOOD) > 1)
+        if (SlotManager.instance.GetModelCount(SlotType.VEG) == 0)
+            return false;
+
+        for (int i = 0; i < slotItems.Count - 1; i++)
         {
-            return true;
+            if (slotItems[i].type == SlotType.WOOD &&
+                slotItems[i + 1].type == SlotType.WOOD)
+            {
+                return true;
+            }
         }
 
         return false;
@@ -19,19 +27,24 @@ public class BuildShelterActivity : IActivity
 
     public void FailActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "Both of us need Wood selected in our reels to build that!" }, new List<int> { 6 });
+        if (SlotManager.instance.GetModelCount(SlotType.VEG) == 0)
+            SpeechBubble.instance.SpeakText(new List<string> { "There is no Vegetation left!" }, new List<int> { 1 });
+        else
+            SpeechBubble.instance.SpeakText(new List<string> { "We need 2 Wood reels next to each other!" }, new List<int> { 1 });
     }
 
     public void PerformActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
+        //SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
 
-        GameManager.instance.shelterBuilt = true;
+        SlotManager.instance.RemoveModel(SlotType.VEG);
+        SlotManager.instance.CreateNewGlobalReel();
+
         GameManager.instance.MoveAfterWork();
     }
 
     public string GetTooltip()
     {
-        return "Negates 1 Storm reel when using Work";
+        return "Removes 1 Vegetation";
     }
 }

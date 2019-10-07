@@ -19,19 +19,24 @@ public class WillToSurviveActivity : IActivity
 
     public void FailActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "I can only do this if Morale is selected for my reel." }, new List<int> { 1 });
+        SpeechBubble.instance.SpeakText(new List<string> { "We can only do this if Morale is selected in a reel." }, new List<int> { 1 });
     }
 
     public void PerformActivity()
     {
         //SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
+        SlotManager.instance.AddModel(new SlotModel(SlotType.MORALE));
+        SlotManager.instance.AddModel(new SlotModel(SlotType.MORALE));
+        SlotManager.instance.AddModel(new SlotModel(SlotType.FOOD));
+        SlotManager.instance.AddModel(new SlotModel(SlotType.FOOD));
 
-        GameManager.instance.maxMoves++;
+        SlotManager.instance.CreateNewGlobalReel();
+
         GameManager.instance.MoveAfterWork();
     }
 
     public string GetTooltip()
     {
-        return "Adds 1 more action per day";
+        return "Adds 2 Morale and 2 Food slots";
     }
 }

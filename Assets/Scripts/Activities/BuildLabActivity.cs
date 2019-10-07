@@ -9,11 +9,16 @@ public class BuildLabActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Any(r => r.type == SlotType.WOOD) &&
-            slotItems.Count(r => r.type == SlotType.TECH) > 2 &&
-            slotItems.Any(r => r.type == SlotType.STORM))
+        if (slotItems.Count == 5)
         {
-            return true;
+            if (slotItems[0].type == SlotType.WOOD &&
+                slotItems[1].type == SlotType.TECH &&
+                slotItems[2].type == SlotType.STORM &&
+                slotItems[3].type == SlotType.FOOD &&
+                slotItems[4].type == SlotType.WOOD)
+            {
+                return true;
+            }
         }
 
         return false;
@@ -26,18 +31,14 @@ public class BuildLabActivity : IActivity
 
     public void PerformActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
+        //SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
 
-        GameManager.instance.moraleGainAmt = 2;
-        GameManager.instance.foodGainAmt = 2;
-        GameManager.instance.woodGainAmt = 2;
-        GameManager.instance.weaponsGainAmt = 2;
-        GameManager.instance.techGainAmt = 2;
+        GameManager.instance.movesLeft *= 2;
         GameManager.instance.MoveAfterWork();
     }
 
     public string GetTooltip()
     {
-        return "Doubles resources gained from reels";
+        return "Doubles # of Actions Left (this day only)";
     }
 }

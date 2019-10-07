@@ -15,6 +15,7 @@ public class ActivityButton : MonoBehaviour
     public bool hasFifthText;
     public bool isCompleted;
     public bool isActivated;
+    public bool isRepeatable;
 
     private string origText;
 
@@ -51,7 +52,7 @@ public class ActivityButton : MonoBehaviour
                 if (hasFifthText)
                     requirementObjects[i].SetActive(true);
             }
-            else
+            else if (i % 2 == 0) // Only activate icons
                 requirementObjects[i].SetActive(true);
         }
 

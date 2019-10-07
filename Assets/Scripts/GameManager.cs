@@ -41,7 +41,11 @@ public class GameManager : Singleton<GameManager>
 
     public List<Image> upgradeArrows;
     public Button spinButton;
+    public Button newDayButton;
     public TextMeshProUGUI tipText;
+
+    private List<EventDay> eventDays;
+    public Transform eventDayParent;
 
     private void Update()
     {
@@ -50,11 +54,26 @@ public class GameManager : Singleton<GameManager>
             movesLeft += 10;
             StatManager.instance.UpdateText();
         }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            SlotManager.instance.AddModel(new SlotModel(SlotType.MORALE));
+            SlotManager.instance.CreateNewGlobalReel();
+            SlotManager.instance.SpinReels();
+        }
     }
 
     // Use this for initialization
     void Start()
     {
+        eventDays = new List<EventDay>(eventDayParent.GetComponentsInChildren<EventDay>());
+
+        int i = 1;
+        foreach (EventDay day in eventDays)
+        {
+            day.SetDay(i);
+            i++;
+        }
+
         morale = 0;
         food = 0;
         foodLossAmt = 3;
@@ -67,7 +86,7 @@ public class GameManager : Singleton<GameManager>
         maxWeapons = 5;
         maxTech = 50;
 
-        maxMoves = 6;
+        maxMoves = 8;
         numCharacters = 1;
 
         StartNewDay();
@@ -178,6 +197,7 @@ public class GameManager : Singleton<GameManager>
         if (movesLeft == 0)
         {
             spinButton.interactable = false;
+            newDayButton.interactable = true;
         }
         else if (movesLeft == -1)
         {
@@ -210,6 +230,8 @@ public class GameManager : Singleton<GameManager>
             morale += weapons;
             weapons = 0;
         }
+
+        eventDays[day - 1].CrossOut();
     }
 
     public void StartNewDay()
@@ -233,15 +255,17 @@ public class GameManager : Singleton<GameManager>
             tech = maxTech;
 
         spinButton.interactable = true;
+        newDayButton.interactable = false;
 
         // New day conditions
-        if (day == 5)  // Rats
+        if (day == 3)  // Rats
         {
             SlotManager.instance.AddModel(new SlotModel(SlotType.RATS));
             SlotManager.instance.AddModel(new SlotModel(SlotType.RATS));
             SlotManager.instance.CreateNewGlobalReel();
             SlotManager.instance.SpinReels();
 
+            /*
             int characterToSpeak = UnityEngine.Random.Range(0, numCharacters);
             switch (characterToSpeak)
             {
@@ -252,33 +276,35 @@ public class GameManager : Singleton<GameManager>
                     SpeechBubble.instance.SpeakText(new List<string> { "Are those RATS by the food stash?! They will rue this day." }, new List<int> { 2 });
                     break;
             }
+            */
         }
-        else if (day == 8) // Storm
+        else if (day == 9) // Storm
         {
             SlotManager.instance.AddModel(new SlotModel(SlotType.STORM));
             SlotManager.instance.CreateNewGlobalReel();
             SlotManager.instance.SpinReels();
 
-            int characterToSpeak = UnityEngine.Random.Range(0, numCharacters);
-            switch (characterToSpeak)
-            {
-                case 0:
-                case 1:
-                    SpeechBubble.instance.SpeakText(new List<string> { "Looks like the weather's getting worse by the day. Let's keep our roofs patched up." }, new List<int> { 1 });
-                    break;
-                case 2:
-                    SpeechBubble.instance.SpeakText(new List<string> { "A little rain never hurt an adventure, let's go explore some more!",
-                    "Did I hear you say explore the indoors? Finally you're making sense." }, new List<int> { 2, 3 });
-                    break;
-
-            }
+            /* int characterToSpeak = UnityEngine.Random.Range(0, numCharacters);
+             switch (characterToSpeak)
+             {
+                 case 0:
+                 case 1:
+                     SpeechBubble.instance.SpeakText(new List<string> { "Looks like the weather's getting worse by the day. Let's keep our roofs patched up." }, new List<int> { 1 });
+                     break;
+                 case 2:
+                     SpeechBubble.instance.SpeakText(new List<string> { "A little rain never hurt an adventure, let's go explore some more!",
+                     "Did I hear you say explore the indoors? Finally you're making sense." }, new List<int> { 2, 3 });
+                     break;
+             }
+             */
         }
-        else if (day == 11) // Storm
+        else if (day == 12) // Tiger
         {
-            SlotManager.instance.AddModel(new SlotModel(SlotType.STORM));
+            SlotManager.instance.AddModel(new SlotModel(SlotType.TIGER));
             SlotManager.instance.CreateNewGlobalReel();
             SlotManager.instance.SpinReels();
 
+            /*
             int characterToSpeak = UnityEngine.Random.Range(0, numCharacters);
             switch (characterToSpeak)
             {
@@ -295,8 +321,56 @@ public class GameManager : Singleton<GameManager>
                     SpeechBubble.instance.SpeakText(new List<string> { "Whoaaa look at the lightning from the clouds. This would make some great backdrops!",
                     "Kid, go play FFX. You'll never want to see a lightning bolt ever again." }, new List<int> { 4, 3 });
                     break;
-
             }
+            */
+        }
+        else if (day == 14)
+        {
+            SlotManager.instance.AddModel(new SlotModel(SlotType.RATS));
+            SlotManager.instance.AddModel(new SlotModel(SlotType.RATS));
+            SlotManager.instance.CreateNewGlobalReel();
+            SlotManager.instance.SpinReels();
+        }
+        else if (day == 16)
+        {
+            SlotManager.instance.AddModel(new SlotModel(SlotType.STORM));
+            SlotManager.instance.CreateNewGlobalReel();
+            SlotManager.instance.SpinReels();
+        }
+        else if (day == 18)
+        {
+            SlotManager.instance.AddModel(new SlotModel(SlotType.TIGER));
+            SlotManager.instance.CreateNewGlobalReel();
+            SlotManager.instance.SpinReels();
+        }
+        else if (day == 19)
+        {
+            SlotManager.instance.AddModel(new SlotModel(SlotType.STORM));
+            SlotManager.instance.CreateNewGlobalReel();
+            SlotManager.instance.SpinReels();
+        }
+        else if (day == 20)
+        {
+            SlotManager.instance.AddModel(new SlotModel(SlotType.TIGER));
+            SlotManager.instance.AddModel(new SlotModel(SlotType.TIGER));
+            SlotManager.instance.CreateNewGlobalReel();
+            SlotManager.instance.SpinReels();
+        }
+        else if (day == 22)
+        {
+            SlotManager.instance.AddModel(new SlotModel(SlotType.TIGER));
+            SlotManager.instance.AddModel(new SlotModel(SlotType.TIGER));
+            SlotManager.instance.AddModel(new SlotModel(SlotType.TIGER));
+            SlotManager.instance.CreateNewGlobalReel();
+            SlotManager.instance.SpinReels();
+        }
+        else if (day == 24)
+        {
+            SlotManager.instance.AddModel(new SlotModel(SlotType.STORM));
+            SlotManager.instance.AddModel(new SlotModel(SlotType.STORM));
+            SlotManager.instance.AddModel(new SlotModel(SlotType.STORM));
+            SlotManager.instance.CreateNewGlobalReel();
+            SlotManager.instance.SpinReels();
         }
 
         movesLeft = 100; // Just a buffer to get initial moves in
@@ -361,15 +435,15 @@ public class GameManager : Singleton<GameManager>
     private void InitSlotData()
     {
         SlotManager.instance.Init();
+
         SlotManager.instance.AddModel(new SlotModel(SlotType.MORALE));
-        SlotManager.instance.AddModel(new SlotModel(SlotType.MORALE));
-        SlotManager.instance.AddModel(new SlotModel(SlotType.MORALE));
-        SlotManager.instance.AddModel(new SlotModel(SlotType.FOOD));
-        SlotManager.instance.AddModel(new SlotModel(SlotType.FOOD));
-        SlotManager.instance.AddModel(new SlotModel(SlotType.FOOD));
-        //SlotManager.instance.AddModel(new SlotModel(SlotType.TECH));
-        //SlotManager.instance.AddModel(new SlotModel(SlotType.WEAPONS));
-        //SlotManager.instance.AddModel(new SlotModel(SlotType.WOOD));
+        SlotManager.instance.AddModel(new SlotModel(SlotType.VEG));
+        SlotManager.instance.AddModel(new SlotModel(SlotType.VEG));
+        SlotManager.instance.AddModel(new SlotModel(SlotType.VEG));
+        SlotManager.instance.AddModel(new SlotModel(SlotType.VEG));
+        SlotManager.instance.AddModel(new SlotModel(SlotType.VEG));
+        SlotManager.instance.AddModel(new SlotModel(SlotType.VEG));
+
         SlotManager.instance.CreateNewGlobalReel();
         SlotManager.instance.SpinReels();
     }

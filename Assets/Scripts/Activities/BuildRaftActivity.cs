@@ -27,7 +27,7 @@ public class BuildRaftActivity : IActivity
 
     public void FailActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "Alright, we need each of us to specialize in a material and do it in order. Let's go home!" }, new List<int> { 1 });
+        SpeechBubble.instance.SpeakText(new List<string> { "We need one of everything, guys. Let's go home!" }, new List<int> { 1 });
     }
 
     public void PerformActivity()

@@ -9,9 +9,16 @@ public class BuildRatTrapActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Any(r => r.type == SlotType.MORALE) && slotItems.Any(r => r.type == SlotType.FOOD))
+        if (SlotManager.instance.GetModelCount(SlotType.RATS) == 0)
+            return false;
+
+        for (int i = 0; i < slotItems.Count - 1; i++)
         {
-            return true;
+            if (slotItems[i].type == SlotType.MORALE &&
+                slotItems[i + 1].type == SlotType.FOOD)
+            {
+                return true;
+            }
         }
 
         return false;
@@ -19,19 +26,24 @@ public class BuildRatTrapActivity : IActivity
 
     public void FailActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "Not quite there. Some bait and patience should do the trick." }, new List<int> { 2 });
+        if (SlotManager.instance.GetModelCount(SlotType.RATS) == 0)
+            SpeechBubble.instance.SpeakText(new List<string> { "There are no Rats!" }, new List<int> { 1 });
+        else
+        SpeechBubble.instance.SpeakText(new List<string> { "Not quite there. We need Morale and Food reels side by side." }, new List<int> { 2 });
     }
 
     public void PerformActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
+        //SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
 
-        GameManager.instance.foodLossAmt = 1;
+        SlotManager.instance.RemoveModel(SlotType.RATS);
+        SlotManager.instance.CreateNewGlobalReel();
+
         GameManager.instance.MoveAfterWork();
     }
 
     public string GetTooltip()
     {
-        return "Rats only take 1 food each instead of 3";
+        return "Removes 1 Rat";
     }
 }

@@ -9,9 +9,13 @@ public class BuildFireActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Any(r => r.type == SlotType.MORALE) && slotItems.Any(r => r.type == SlotType.WOOD))
+        for (int i = 0; i < slotItems.Count - 1; i++)
         {
-            return true;
+            if (slotItems[i].type == SlotType.WOOD &&
+                slotItems[i + 1].type == SlotType.MORALE)
+            {
+                return true;
+            }
         }
 
         return false;
@@ -19,7 +23,7 @@ public class BuildFireActivity : IActivity
 
     public void FailActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "We don't have the right materials, but once we do the smoke should signal others." }, new List<int> { 1 });
+        SpeechBubble.instance.SpeakText(new List<string> { "Need a Fire reel followed by a Morale reel." }, new List<int> { 1 });
     }
 
     public void PerformActivity()
@@ -32,6 +36,6 @@ public class BuildFireActivity : IActivity
 
     public string GetTooltip()
     {
-        return "Adds a 3rd person to the group";
+        return "Adds a 3rd person to the group (adds 2 Weapons)";
     }
 }

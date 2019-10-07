@@ -56,6 +56,41 @@ public class SlotManager : Singleton<SlotManager>
         slotItems.Add(slotModel);
     }
 
+
+    /// <summary>
+    /// Adds to global list of items
+    /// </summary>
+    /// <param name="slotModel"></param>
+    public void RemoveModel(SlotType slotType)
+    {
+        int i = 0;
+        SlotModel toRemove = null;
+
+        foreach (SlotModel model in slotItems)
+        {
+            if (model.type == slotType)
+            {
+                toRemove = model;
+                break;
+            }
+
+            i++;
+        }
+
+        for (int j = i; j < slotItems.Count; j++)
+        {
+            slotItems[j].slotId--;
+        }
+
+        currId--;
+        slotItems.Remove(toRemove);
+    }
+
+    public int GetModelCount(SlotType slotType)
+    {
+        return slotItems.Count(o => o.type == slotType);
+    }
+
     /// <summary>
     /// Shuffles global list of items
     /// </summary>
@@ -82,6 +117,9 @@ public class SlotManager : Singleton<SlotManager>
             int idx = rand.Next(0, slotItems.Count);
             SetReelToModel(reel.reelNumber, idx);
             reel.Spin();
+
+            SlotModel currModel = slotItems[idx];
+            view.Scramble(reel.reelNumber, currModel);
         }
 
         ActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
@@ -120,8 +158,8 @@ public class SlotManager : Singleton<SlotManager>
         }
 
         //SetReelToModel(reelNumber, nextIndex);
-        ActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
-        GameManager.instance.UseMove();
+        //ActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
+        //GameManager.instance.UseMove();
     }
 
     /// <summary>
@@ -139,7 +177,7 @@ public class SlotManager : Singleton<SlotManager>
         {
             nextIndex = 0;
         }
-        
+
         foreach (Reel reel in reels)
         {
             if (reel.reelNumber == reelNumber)
@@ -150,13 +188,15 @@ public class SlotManager : Singleton<SlotManager>
         }
 
         //SetReelToModel(reelNumber, nextIndex);
-        ActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
-        GameManager.instance.UseMove();
+        //ActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
+        //GameManager.instance.UseMove();
     }
 
     public void FinishedMoving(int reelNumber, int nextIndex)
     {
         SetReelToModel(reelNumber, nextIndex);
+        ActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
+        GameManager.instance.UseMove();
     }
 
     /// <summary>
@@ -192,7 +232,8 @@ public class SlotManager : Singleton<SlotManager>
         if (reelMap.ContainsKey(reelNumber))
         {
             int prevNum = reelMap[reelNumber];
-            prevModel = slotItems[prevNum];
+            if(prevNum < slotItems.Count)
+                prevModel = slotItems[prevNum];
         }
         foreach (Reel reel in reels)
         {

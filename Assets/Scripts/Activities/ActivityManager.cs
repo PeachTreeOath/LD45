@@ -69,7 +69,9 @@ public class ActivityManager : Singleton<ActivityManager>
             {
                 if (!activityButton.isCompleted)
                 {
-                    activityButtons[activityNumber].SetToComplete();
+                    if (!activityButton.isRepeatable)
+                        activityButtons[activityNumber].SetToComplete();
+
                     activity.PerformActivity();
                 }
             }
@@ -98,7 +100,8 @@ public class ActivityManager : Singleton<ActivityManager>
 
     public void ShowTooltip(int activityNumber)
     {
-        SpeechBubble.instance.ShowTooltip(allActivities[activityNumber].GetTooltip());
+        if (activityButtons[activityNumber].isActivated)
+            SpeechBubble.instance.ShowTooltip(allActivities[activityNumber].GetTooltip());
     }
 
     public void HideTooltip()

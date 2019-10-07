@@ -14,5 +14,6 @@ public enum SlotType
     TIGER,
     GORILLA,
     START,
-    GAME
+    GAME,
+    VEG
 }

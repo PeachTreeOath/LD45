@@ -9,12 +9,16 @@ public class KillTigerKingActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Any(r => r.type == SlotType.FOOD) &&
-            slotItems.Any(r => r.type == SlotType.WOOD) &&
-                    slotItems.Count(r => r.type == SlotType.WEAPONS) > 1 &&
-                    slotItems.Any(r => r.type == SlotType.TECH))
+        if (slotItems.Count == 5)
         {
-            return true;
+            if (slotItems[0].type == SlotType.WOOD &&
+                slotItems[1].type == SlotType.WEAPONS &&
+                slotItems[2].type == SlotType.TECH &&
+                slotItems[3].type == SlotType.RATS &&
+                slotItems[4].type == SlotType.WEAPONS)
+            {
+                return true;
+            }
         }
 
         return false;
@@ -22,19 +26,25 @@ public class KillTigerKingActivity : IActivity
 
     public void FailActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "Lets use a mouse to lure it out!" }, new List<int> { 4 });
+        SpeechBubble.instance.SpeakText(new List<string> { "Let's use a mouse to lure it out!" }, new List<int> { 4 });
     }
 
     public void PerformActivity()
     {
         //SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
 
-        GameManager.instance.dontSpawnTigers = true;
+        int tigerCount = SlotManager.instance.GetModelCount(SlotType.TIGER);
+        
+        for (int i = 0; i < tigerCount; i++)
+            SlotManager.instance.RemoveModel(SlotType.TIGER);
+
+        SlotManager.instance.CreateNewGlobalReel();
+
         GameManager.instance.MoveAfterWork();
     }
 
     public string GetTooltip()
     {
-        return "Prevent more tigers from spawning";
+        return "Removes all Tigers (can only be used once!)";
     }
 }
