@@ -246,10 +246,8 @@ public class GameManager : Singleton<GameManager>
         spinButton.interactable = true;
         newDayButton.interactable = false;
 
-        if (day == 2)
-            ScreenFader.instance.Activate();
-            // New day conditions
-            if (day == 3)  // Rats
+        // New day conditions
+        if (day == 3)  // Rats
         {
             SlotManager.instance.AddModel(new SlotModel(SlotType.RATS));
             SlotManager.instance.AddModel(new SlotModel(SlotType.RATS));
