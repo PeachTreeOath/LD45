@@ -29,7 +29,7 @@ public class ThrowBeachPartyActivity : IActivity
 
     public void PerformActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
+        //SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
 
         GameManager.instance.morale += 50;
         GameManager.instance.MoveAfterWork();

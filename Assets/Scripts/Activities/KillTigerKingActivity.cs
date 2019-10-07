@@ -22,12 +22,12 @@ public class KillTigerKingActivity : IActivity
 
     public void FailActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "Lets use a mousey to lure it out!" }, new List<int> { 4 });
+        SpeechBubble.instance.SpeakText(new List<string> { "Lets use a mouse to lure it out!" }, new List<int> { 4 });
     }
 
     public void PerformActivity()
     {
-        SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
+        //SpeechBubble.instance.SpeakText(new List<string> { "No use sulking about the situation, time to get to work!" }, new List<int> { 1 });
 
         GameManager.instance.dontSpawnTigers = true;
         GameManager.instance.MoveAfterWork();

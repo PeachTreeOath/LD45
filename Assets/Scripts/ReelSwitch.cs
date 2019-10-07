@@ -26,7 +26,7 @@ public class ReelSwitch : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (SceneManager.GetActiveScene().name.Equals("TitleScreen"))
+        if (SceneManager.GetActiveScene().name.Equals("Tutorial"))
         {
             if (isDirectionUp)
                 TutorialSlotManager.instance.MoveReelUp(reelNumber);

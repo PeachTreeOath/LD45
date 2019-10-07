@@ -19,7 +19,7 @@ public class ActivityButton : MonoBehaviour
     private string origText;
 
     private static string completeTextString = "COMPLETE";
-    private const string blankText = "???";
+    public string blankText;
 
     public Image buttonImageForHighlight;
     private static Color highlightColor = new Color(.7f, 1, .7f, 1);

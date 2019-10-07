@@ -24,7 +24,6 @@ public class TutorialSlotManager : Singleton<TutorialSlotManager>
         view.transform.SetParent(transform);
         view.Init();
 
-
         reels.Add(setupReels[0]);
         reels.Add(setupReels[1]);
     }
