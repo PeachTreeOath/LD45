@@ -18,6 +18,8 @@ public class TutorialSlotManager : Singleton<TutorialSlotManager>
 
     public void Init()
     {
+        TutorialActivityManager.instance.Init();
+
         rand = new System.Random();
         GameObject viewObj = ResourceLoader.instance.GetPrefab("SlotManagerView");
         view = Instantiate(viewObj).GetComponent<SlotManagerView>();
@@ -69,8 +71,13 @@ public class TutorialSlotManager : Singleton<TutorialSlotManager>
         {
             int idx = rand.Next(0, slotItems.Count);
             SetReelToModel(reel.reelNumber, idx);
+            reel.Spin();
+
+            SlotModel currModel = slotItems[idx];
+            view.Scramble(reel.reelNumber, currModel);
         }
 
+        TutorialActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
         TutorialGameManager.instance.UseMove();
     }
 
@@ -96,7 +103,24 @@ public class TutorialSlotManager : Singleton<TutorialSlotManager>
             nextIndex = slotItems.Count - 1;
         }
 
+        foreach (Reel reel in reels)
+        {
+            if (reel.reelNumber == reelNumber)
+            {
+                reel.AnimateReelUp(nextIndex);
+                break;
+            }
+        }
+
+        //SetReelToModel(reelNumber, nextIndex);
+        //ActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
+        //GameManager.instance.UseMove();
+    }
+
+    public void FinishedMoving(int reelNumber, int nextIndex)
+    {
         SetReelToModel(reelNumber, nextIndex);
+        TutorialActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
         TutorialGameManager.instance.UseMove();
     }
 
@@ -116,8 +140,18 @@ public class TutorialSlotManager : Singleton<TutorialSlotManager>
             nextIndex = 0;
         }
 
-        SetReelToModel(reelNumber, nextIndex);
-        TutorialGameManager.instance.UseMove();
+        foreach (Reel reel in reels)
+        {
+            if (reel.reelNumber == reelNumber)
+            {
+                reel.AnimateReelDown(nextIndex);
+                break;
+            }
+        }
+
+        //SetReelToModel(reelNumber, nextIndex);
+        //ActivityManager.instance.ShowAllAvailableActivities(GetCurrentReelModels());
+        //GameManager.instance.UseMove();
     }
 
     /// <summary>
@@ -128,17 +162,44 @@ public class TutorialSlotManager : Singleton<TutorialSlotManager>
     private void SetReelToModel(int reelNumber, int slotIdx)
     {
         SlotModel currModel = slotItems[slotIdx];
+
+        int bottomSlotIdx = slotIdx + 1;
+        if (bottomSlotIdx == slotItems.Count)
+            bottomSlotIdx = 0;
+        SlotModel bottomModel = slotItems[bottomSlotIdx];
+
+        int bottomestSlotIdx = slotIdx + 2;
+        if (bottomestSlotIdx >= slotItems.Count)
+            bottomestSlotIdx -= slotItems.Count;
+        SlotModel bottomestModel = slotItems[bottomestSlotIdx];
+
+        int topSlotIdx = slotIdx - 1;
+        if (topSlotIdx < 0)
+            topSlotIdx = slotItems.Count - 1;
+        SlotModel topModel = slotItems[topSlotIdx];
+
+        int toppestSlotIdx = slotIdx - 2;
+        if (toppestSlotIdx < 0)
+            toppestSlotIdx += slotItems.Count;
+        SlotModel toppestModel = slotItems[toppestSlotIdx];
+
         SlotModel prevModel = null;
         if (reelMap.ContainsKey(reelNumber))
         {
             int prevNum = reelMap[reelNumber];
-            prevModel = slotItems[prevNum];
+            if (prevNum < slotItems.Count)
+                prevModel = slotItems[prevNum];
         }
         foreach (Reel reel in reels)
         {
             if (reel.reelNumber == reelNumber)
             {
                 reel.SetCurrentSlotModel(currModel); // Set reel image
+                reel.SetTopSlotModel(topModel);
+                reel.SetBottomSlotModel(bottomModel);
+                reel.SetToppestSlotModel(toppestModel);
+                reel.SetBottomestSlotModel(bottomestModel);
+
                 if (prevModel != null)
                     view.SetSlotModelDecorations(reel.reelNumber, prevModel, false); // Set preview decorations
                 view.SetSlotModelDecorations(reel.reelNumber, currModel, true); // Set preview decorations

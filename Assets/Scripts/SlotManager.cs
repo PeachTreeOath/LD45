@@ -56,14 +56,8 @@ public class SlotManager : Singleton<SlotManager>
         slotItems.Add(slotModel);
     }
 
-
-    /// <summary>
-    /// Adds to global list of items
-    /// </summary>
-    /// <param name="slotModel"></param>
     public void RemoveModel(SlotType slotType)
     {
-        int i = 0;
         SlotModel toRemove = null;
 
         foreach (SlotModel model in slotItems)
@@ -73,13 +67,12 @@ public class SlotManager : Singleton<SlotManager>
                 toRemove = model;
                 break;
             }
-
-            i++;
         }
 
-        for (int j = i; j < slotItems.Count; j++)
+        foreach (SlotModel model in slotItems)
         {
-            slotItems[j].slotId--;
+            if (model.slotId > toRemove.slotId)
+                model.slotId--;
         }
 
         currId--;
@@ -232,7 +225,7 @@ public class SlotManager : Singleton<SlotManager>
         if (reelMap.ContainsKey(reelNumber))
         {
             int prevNum = reelMap[reelNumber];
-            if(prevNum < slotItems.Count)
+            if (prevNum < slotItems.Count)
                 prevModel = slotItems[prevNum];
         }
         foreach (Reel reel in reels)

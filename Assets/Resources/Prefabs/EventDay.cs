@@ -8,9 +8,10 @@ public class EventDay : MonoBehaviour
 {
     public Image cross;
     public TextMeshProUGUI title;
-
+    private Color origColor;
     private void Start()
     {
+        origColor = title.color;
         cross.enabled = false;
     }
 
@@ -22,5 +23,17 @@ public class EventDay : MonoBehaviour
     public void CrossOut()
     {
         cross.enabled = true;
+    }
+
+    public void ToggleTitle(bool toggle)
+    {
+        if (toggle)
+        {
+            title.color = Color.white;
+        }
+        else
+        {
+            title.color = Color.black;
+        }
     }
 }

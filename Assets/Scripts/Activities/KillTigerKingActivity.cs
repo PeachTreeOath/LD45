@@ -9,13 +9,11 @@ public class KillTigerKingActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Count == 5)
+        for (int i = 0; i < slotItems.Count - 2; i++)
         {
-            if (slotItems[0].type == SlotType.WOOD &&
-                slotItems[1].type == SlotType.WEAPONS &&
-                slotItems[2].type == SlotType.TECH &&
-                slotItems[3].type == SlotType.RATS &&
-                slotItems[4].type == SlotType.WEAPONS)
+            if (slotItems[i].type == SlotType.RATS &&
+                slotItems[i + 1].type == SlotType.WEAPONS &&
+                slotItems[i + 2].type == SlotType.FOOD)
             {
                 return true;
             }

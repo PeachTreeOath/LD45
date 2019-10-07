@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Reel : MonoBehaviour
@@ -125,7 +126,10 @@ public class Reel : MonoBehaviour
             i++;
         }
 
-        SlotManager.instance.FinishedMoving(reelNumber, nextIndex);
+        if (SceneManager.GetActiveScene().name.Equals("Game"))
+            SlotManager.instance.FinishedMoving(reelNumber, nextIndex);
+        else
+            TutorialSlotManager.instance.FinishedMoving(reelNumber, nextIndex);
     }
 
     private void FinishedMovingDown()
@@ -140,7 +144,10 @@ public class Reel : MonoBehaviour
             i++;
         }
 
-        SlotManager.instance.FinishedMoving(reelNumber, nextIndex);
+        if (SceneManager.GetActiveScene().name.Equals("Game"))
+            SlotManager.instance.FinishedMoving(reelNumber, nextIndex);
+        else
+            TutorialSlotManager.instance.FinishedMoving(reelNumber, nextIndex);
     }
 
     public void SetCurrentSlotModel(SlotModel model)

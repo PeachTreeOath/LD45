@@ -60,6 +60,7 @@ public class SpeechBubble : Singleton<SpeechBubble>
 
     public void SpeakText(List<string> textList, List<int> personList, int index = 0)
     {
+        return;
         StopAllCoroutines();
 
         tooltipText.enabled = false;
@@ -128,6 +129,8 @@ public class SpeechBubble : Singleton<SpeechBubble>
 
     public void NextText()
     {
+        return;
+
         if (isShowingTooltip)
         {
             HideTooltip();

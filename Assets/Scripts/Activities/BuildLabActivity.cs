@@ -9,13 +9,11 @@ public class BuildLabActivity : IActivity
 
     public bool AreRequirementsFulfilled(List<SlotModel> slotItems)
     {
-        if (slotItems.Count == 5)
+        for (int i = 0; i < slotItems.Count - 2; i++)
         {
-            if (slotItems[0].type == SlotType.WOOD &&
-                slotItems[1].type == SlotType.TECH &&
-                slotItems[2].type == SlotType.STORM &&
-                slotItems[3].type == SlotType.FOOD &&
-                slotItems[4].type == SlotType.WOOD)
+            if (slotItems[i].type == SlotType.WOOD &&
+                slotItems[i + 1].type == SlotType.STORM &&
+                slotItems[i + 2].type == SlotType.TECH)
             {
                 return true;
             }
@@ -39,6 +37,6 @@ public class BuildLabActivity : IActivity
 
     public string GetTooltip()
     {
-        return "Doubles # of Actions Left (this day only)";
+        return "Doubles no. of Actions Left (this day only)";
     }
 }

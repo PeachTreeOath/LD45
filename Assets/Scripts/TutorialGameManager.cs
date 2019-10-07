@@ -21,6 +21,9 @@ public class TutorialGameManager : Singleton<TutorialGameManager>
         maxMoves = 999;
 
         InitSlotData();
+
+        TutorialActivityManager.instance.RevealButtons(1);
+        TutorialActivityManager.instance.ShowAllAvailableActivities(TutorialSlotManager.instance.GetCurrentReelModels());
     }
 
     public void DoWork()

@@ -11,9 +11,9 @@ public class CraftRopeActivity : IActivity
     {
         for (int i = 0; i < slotItems.Count - 3; i++)
         {
-            if (slotItems[i].type == SlotType.WOOD &&
+            if (slotItems[i].type == SlotType.WEAPONS &&
                 slotItems[i + 1].type == SlotType.TECH &&
-                slotItems[i + 2].type == SlotType.WOOD &&
+                slotItems[i + 2].type == SlotType.WEAPONS &&
                 slotItems[i + 3].type == SlotType.TECH)
             {
                 return true;
