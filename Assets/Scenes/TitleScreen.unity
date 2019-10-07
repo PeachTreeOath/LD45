@@ -180,6 +180,11 @@ PrefabInstance:
       propertyPath: reelNumber
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114578111607962884, guid: 08260646c49da794c8d790040288bc7e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4029563675940854, guid: 08260646c49da794c8d790040288bc7e, type: 3}
       propertyPath: m_LocalPosition.y
       value: 2.301
@@ -1369,6 +1374,11 @@ PrefabInstance:
       propertyPath: reelNumber
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114578111607962884, guid: 08260646c49da794c8d790040288bc7e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4029563675940854, guid: 08260646c49da794c8d790040288bc7e, type: 3}
       propertyPath: m_LocalPosition.y
       value: 2.301
@@ -1528,8 +1538,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1542785462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.69, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -1593,6 +1603,11 @@ PrefabInstance:
         type: 3}
       propertyPath: reelNumber
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114578111607962884, guid: 08260646c49da794c8d790040288bc7e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4029563675940854, guid: 08260646c49da794c8d790040288bc7e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1964,6 +1979,11 @@ PrefabInstance:
       propertyPath: reelNumber
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114578111607962884, guid: 08260646c49da794c8d790040288bc7e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4029563675940854, guid: 08260646c49da794c8d790040288bc7e, type: 3}
       propertyPath: m_LocalPosition.y
       value: 2.301
@@ -2108,6 +2128,11 @@ PrefabInstance:
         type: 3}
       propertyPath: reelNumber
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114578111607962884, guid: 08260646c49da794c8d790040288bc7e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4029563675940854, guid: 08260646c49da794c8d790040288bc7e, type: 3}
       propertyPath: m_LocalPosition.y

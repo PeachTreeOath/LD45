@@ -80,7 +80,8 @@ public class GameManager : Singleton<GameManager>
         ActivityManager.instance.RevealButtons(1);
         ActivityManager.instance.ShowAllAvailableActivities(SlotManager.instance.GetCurrentReelModels());
         SpeechBubble.instance.HideImmediate();
-        //SpeechBubble.instance.SpeakText(new List<string> { "Ow my head...", "Why me?" }, new List<int> { 1, 4 });
+
+        ScreenFader.instance.DeactivateIntro();
     }
 
     public void UpgradeResource(int resourceType)
@@ -245,8 +246,10 @@ public class GameManager : Singleton<GameManager>
         spinButton.interactable = true;
         newDayButton.interactable = false;
 
-        // New day conditions
-        if (day == 3)  // Rats
+        if (day == 2)
+            ScreenFader.instance.Activate();
+            // New day conditions
+            if (day == 3)  // Rats
         {
             SlotManager.instance.AddModel(new SlotModel(SlotType.RATS));
             SlotManager.instance.AddModel(new SlotModel(SlotType.RATS));
@@ -269,7 +272,6 @@ public class GameManager : Singleton<GameManager>
         else if (day == 5) // Storm
         {
             SlotManager.instance.AddModel(new SlotModel(SlotType.STORM));
-            SlotManager.instance.AddModel(new SlotModel(SlotType.STORM));
             SlotManager.instance.CreateNewGlobalReel();
             SlotManager.instance.SpinReels();
 
@@ -287,7 +289,7 @@ public class GameManager : Singleton<GameManager>
              }
              */
         }
-        else if (day == 6) // Tiger
+        else if (day == 7) // Tiger
         {
             SlotManager.instance.AddModel(new SlotModel(SlotType.TIGER));
             SlotManager.instance.CreateNewGlobalReel();
@@ -320,15 +322,8 @@ public class GameManager : Singleton<GameManager>
             SlotManager.instance.CreateNewGlobalReel();
             SlotManager.instance.SpinReels();
         }
-        else if (day == 9)
-        {
-            SlotManager.instance.AddModel(new SlotModel(SlotType.STORM));
-            SlotManager.instance.CreateNewGlobalReel();
-            SlotManager.instance.SpinReels();
-        }
         else if (day == 11)
         {
-            SlotManager.instance.AddModel(new SlotModel(SlotType.STORM));
             SlotManager.instance.AddModel(new SlotModel(SlotType.STORM));
             SlotManager.instance.AddModel(new SlotModel(SlotType.STORM));
             SlotManager.instance.CreateNewGlobalReel();
@@ -378,7 +373,7 @@ public class GameManager : Singleton<GameManager>
         }
         else if (day == 20)
         {
-            //ScreenFader.Instantiate
+            ScreenFader.instance.Activate();
         }
 
         movesLeft = 100; // Just a buffer to get initial moves in
